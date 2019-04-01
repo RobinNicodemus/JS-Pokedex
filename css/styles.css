@@ -1,0 +1,21 @@
+/* Colors */
+
+span {
+	letter-spacing: 0.2em;
+}
+
+.green_bg {
+	background-color: green;
+}
+
+.red_bg {
+	background-color: red;
+}
+
+.blue_bg {
+	background-color: blue;
+}
+
+.purple_bg {
+	background-color: purple;
+}
