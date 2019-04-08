@@ -1,9 +1,182 @@
-/* Colors */
-
-span {
-	letter-spacing: 0.2em;
+:root {
+	--pokeColorTextBlue: #3563AE;
+	--pokeColorTextYellow: #FCCA07;
+	--pokeColorPokeBallRed: #F93D32;
+	--pokeColorPikaYellow: #FEDE00;
+	--pokeColorPikaRed: #E40601;
+	--pokeColorAshHatRed: #EE4025;
+	--pokeColorAshHatBlue: #207BC4;
+	--pokeColorBulbaTeal: #7FC9AE;
+	--pokeColorCharmaOrange: #FB8603;
 }
 
+@font-face {
+    font-family: 'pokemon_hollownormal';
+  	src: url('pokemon_hollow-webfont.woff2') format('woff2'),
+	url('pokemon_hollow-webfont.woff') format('woff');
+	font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'pokemon_solidnormal';
+  	src: url('pokemon_solid-webfont.woff2') format('woff2'),
+	url('pokemon_solid-webfont.woff') format('woff');
+	font-weight: normal;
+    font-style: normal;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+ }
+
+
+html {
+	display: grid;
+	grid-template-columns: 1fr 4fr 1fr;
+	grid-template-rows: 1fr;
+	height: 90%;
+	width: 100%;
+	padding-top: 2em;
+}
+
+body {
+	grid-column: 2;
+	border: 3px solid var(--pokeColorTextBlue);
+	border-radius: 15px;
+	overflow: hidden;
+	overflow: -moz-hidden-unscrollable;
+	box-shadow: 1px 1px 10px black;
+}
+
+
+.outer-wrapper {
+	min-height: 100%;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: auto 1fr auto;
+}
+
+header {
+	grid-row: 1;
+	background-color: var(--pokeColorTextYellow);
+	/*border: 3px solid var(--pokeColorTextBlue);*/
+	background-image: linear-gradient(to bottom, #efbd07, #FCCA07);
+}
+
+main {
+	grid-row: 2;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr;
+	grid-gap: 1em;
+	padding: 0 1em;
+	background-color: var(--pokeColorTextYellow);
+}
+
+.main__item {
+	border: 3px solid var(--pokeColorTextBlue);
+	background-color: #F5F5DC;
+	border-radius: 5px;
+	box-shadow:
+		inset 1px 1px 5px #adadad
+		/*,inset -1px -1px 5px #adadad*/;
+}
+
+footer {
+	grid-row: 3;
+	background-color: var(--pokeColorTextYellow);
+	padding: 1em;
+	background-image: linear-gradient(to top, #8c75228c, #FCCA07);
+}
+
+footer > p {
+	font-family: 'pokemon_solidnormal';
+	text-align: center;
+	letter-spacing: 0.1em;
+}
+
+h1 {
+	/*font-family: 'pokemon_hollownormal', sans-serif;*/
+	font-family: 'pokemon_solidnormal';
+	/*font-family: arial, sans-serif;*/
+	font-weight: 800;
+	text-align: center;
+	/*letter-spacing: 0.3em;*/
+	color: var(--pokeColorPikaYellow);
+	text-shadow:
+		-1px -1px 2px var(--pokeColorTextBlue),
+		1px -1px 2px var(--pokeColorTextBlue),
+		-1px 3px 2px var(--pokeColorTextBlue),
+		1px 1px 2px var(--pokeColorTextBlue);
+}
+
+ul {
+	list-style-type: none;
+	padding-left: 0;
+}
+
+li, .pokemon-list__item {
+	box-sizing: content-box;
+	margin: 5px;
+	height: 40px;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	margin-top: 0.5em;
+	border-radius: 10px;
+}
+
+li > img {
+	border-radius: 10px;
+	height: 100%
+	width: 40px;
+}
+
+button, .list-item__button {
+	letter-spacing: 0.05em;
+	background-color: red;
+	color: black;
+	border: none;
+	border-radius: 10px;
+	padding: 0.5em;
+	height: 100%;
+	width: 50%;
+	justify-self: flex-end;
+}
+
+button.list-item__button {
+    font-weight: bold;
+    font-size: 14px;
+    text-shadow: -1px 1px 0 orange;
+}
+
+button, .list-item__button {
+    letter-spacing: 0.05em;
+    background-color: red;
+    color: black;
+    border: none;
+    border-radius: 10px;
+    padding: 0.5em;
+    height: 100%;
+    width: 100%;
+    justify-self: flex-end;
+    background-image: linear-gradient(to bottom, orange, red);
+    /* box-shadow: 1px 1px 5px indianred; */
+    font-family: monospace;
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+????
+
+
+
+/* Colors */
 .green_bg {
 	background-color: green;
 }
@@ -18,4 +191,41 @@ span {
 
 .purple_bg {
 	background-color: purple;
+}
+
+.lightgrey_bg {
+	background-color: lightgrey;
+}
+
+.grey_bg {
+	background-color: grey ;
+}
+
+@media only screen and (max-width: 500px) {
+
+	html {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr;
+	height: 100%;
+	width: 100%;
+	padding: 0;
+	}
+
+	body {
+		grid-column: 1;
+	}
+
+
+	main {
+		grid-row: 2;
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 3fr 5fr;
+	}
+
+	.main-right-or-top {
+		grid-row: 1;
+	}
+
 }
