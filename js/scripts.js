@@ -1,13 +1,13 @@
 var pokemonRepository = (function () {
 	var repository = [
-		{
-			name: 'AllTypeTestMon',
-			height: 0.6,
-			types: ['water','fire','grass']
-		},
+		// {
+		// 	name: 'AllTypeTestMon',
+		// 	height: 0.6,
+		// 	types: ['water','fire','grass']
+		// },
 		{
 			name: 'Bulbasaur',
-			height: 0.7,         
+			height: 0.7,
 			types: ['grass']
 		},
 		{
@@ -21,7 +21,8 @@ var pokemonRepository = (function () {
 			types: ['water']
 		},
 	];
- 
+
+
 //it uses - isTrueEqualKeysObj -(see below) to compare the new entry with the first one in the array.
 //returns what is wrong if something does not fit.
 	function add(pokemon){
@@ -36,6 +37,11 @@ var pokemonRepository = (function () {
 		}
 	}
 
+	function getAll() {
+		return repository;
+	}
+
+
 //filter the repository by checking whether a given string in lowercase is part ...
 //of the value (in lowercase) of the name property of objects in the repository.
 //returns an array of objects whose name value correspond to the given string or an empty one
@@ -45,14 +51,34 @@ var pokemonRepository = (function () {
 		})
 	}
 
-	function getAll() {
-		return repository;
+//create new list-items and buttons, append them to the pokelist,
+//attach ftting classes for the css.
+//the button should show the pokemon`s name and should show it`s details in the console
+	function addListItem(pokemonObject) {
+		var $newListItem = document.createElement('li');
+		var $newButton = document.createElement('button');
+		var $pokeList = document.querySelector('#pokemon-list')
+
+		$newListItem.setAttribute('class', 'pokemon-list__item');
+		$newButton.setAttribute('class', 'list-item__button');
+		$newListItem.appendChild($newButton);
+		$pokeList.appendChild($newListItem);
+		$newButton.innerText = pokemonObject.name;
+		$newButton.addEventListener('click', function(event) {
+			showDetails(event.target.innerText);
+		});
+	}
+
+	function showDetails(pokemonName) {
+		console.log(pokemonName);
 	}
 
 	return {
 		add: add,
 		getAll: getAll,
-		searchByName: searchByName
+		searchByName: searchByName,
+		addListItem: addListItem,
+		showDetails: showDetails
 	};
 })();
 
@@ -102,14 +128,14 @@ function getPokeDescription(singlePokemon) {
 
 //if getHeightEmphasis() returns something truthy, return the pokedescription and the emphasis, with fitting characters as separation.
 //otherwise return only the pokedescription.
-function getForPrintPokeDescription(singlePokemon) {
-	if (getHeightEmphasis(singlePokemon)) {   
+function getFinalPokeDescription(singlePokemon) {
+	if (getHeightEmphasis(singlePokemon)) {
 		return getPokeDescription(singlePokemon) + ' - ' + getHeightEmphasis(singlePokemon);
 	} else {
 		return getPokeDescription(singlePokemon);
-	} 
+	}
 }
 
-allPokemon.forEach(function (pokemon) {
-	document.write(getForPrintPokeDescription(pokemon) + '<br>');
-});
+ allPokemon.forEach(function (pokemon) {
+ 	pokemonRepository.addListItem(pokemon);
+ });
