@@ -1,7 +1,7 @@
 var pokemonRepository = (function () {
 	var repository = [];
   var apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
-
+	var $modalContainer = document.querySelector('#modal-container');
 
 //it uses - isTrueEqualKeysObj -(see below) to compare the new entry with the first one in the array.
 //returns what is wrong if something does not fit.
@@ -72,11 +72,87 @@ var pokemonRepository = (function () {
 		}).then(function (details) {
 			item.imageUrl = details.sprites.front_default;
 			item.heigth = details.height;
-			item.types = Object.keys(details.types);
+		//delete later:	item.types = Object.keys(details.types);
+			if (details.types.length == 2 ) {
+			item.types = [details.types[0].type.name, details.types[1].type.name];
+		} else {
+			item.types = [details.types[0].type.name];
+		}
 	}).catch(function (e) {
 		console.error(e);
 	});
 	}
+
+//TODO research time, jobstack, etc to understand when ledToggleOnOff() will be called
+	function showDetails(pokemonObject) {
+		ledToggleOnOff();
+		pokemonRepository.loadDetails(pokemonObject).then(function() {
+			console.log(pokemonObject);
+			showModal(pokemonObject);
+		ledToggleOnOff();
+		});
+	}
+
+	function showModal(pokemonObject) {
+		//var $modalContainer set at beginning of this document
+		$modalContainer.innerHTML = '';
+
+		var modal = document.createElement('div');
+		modal.classList.add('modal');
+
+		var modalCloseButton = document.createElement('button');
+		modalCloseButton.classList.add('modal-close');
+		modalCloseButton.innerText = 'Close';
+		modalCloseButton.addEventListener('click', hideModal);
+
+		var modalPokeName = document.createElement('h2');
+		modalPokeName.innerText = pokemonObject.name;
+		modalPokeName.classList.add('modal-title')
+
+		var modalPokeImg = document.createElement('Img');
+		modalPokeImg.src = pokemonObject.imageUrl;
+		modalPokeImg.classList.add('modal-img')
+
+		var modalPokeDetails = document.createElement('p');
+		modalPokeDetails.innerText = 'It is ' + pokemonObject.heigth/10 + ' meters tall!' ;
+		modalPokeDetails.classList.add('modal-details');
+
+		var modalPokeDetails2 = document.createElement('p');
+		modalPokeDetails2.innerText = 'Types: ' + pokemonObject.types;
+		modalPokeDetails2.classList.add('modal-details2');
+
+		//repeat above for content
+		modal.appendChild(modalCloseButton);
+		modal.appendChild(modalPokeName);
+		modal.appendChild(modalPokeImg);
+		modal.appendChild(modalPokeDetails);
+		modal.appendChild(modalPokeDetails2);
+		$modalContainer.appendChild(modal);
+
+		$modalContainer.classList.add('is-visible');
+	}
+
+	function hideModal() {
+		//var $modalContainer set at beginning of this document
+		$modalContainer.classList.remove('is-visible');
+	}
+
+	//[esc] to hide the pokeModal:
+	window.addEventListener('keydown', (e) => {
+		//var $modalContainer set at beginning of this document
+		//if escape is pressed, and $modalContainer is visible: call hideModal()
+		if (e.key === 'Escape' && $modalContainer.classList.contains('is-visible'))
+		hideModal();
+	});
+
+	//click on modal container to close the modal:
+	$modalContainer.addEventListener('click', (e) => {
+			var target = e.target;
+			//only fire when the click is on no other div than the container
+			if (target === $modalContainer) {
+				hideModal();
+			}
+	});
 
 	return {
 		add: add,
@@ -100,11 +176,3 @@ pokemonRepository.loadList().then(function() {
 		pokemonRepository.addListItem(pokemonObj);
 	});
 });
-
-function showDetails(pokemonObject) {
-	ledToggleOnOff();
-	pokemonRepository.loadDetails(pokemonObject).then(function() {
-		console.log(pokemonObject);
-	ledToggleOnOff();
-	});
-}
