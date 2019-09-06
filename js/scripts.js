@@ -25,11 +25,11 @@ var pokemonRepository = (function () {
 //filter the repository by checking whether a given string in lowercase is part ...
 //of the value (in lowercase) of the name property of objects in the repository.
 //returns an array of objects whose name value correspond to the given string or an empty one
-	function searchByName(inputNameString) {
-		return repository.filter(function (repositoryObject){
-			return repositoryObject.name.toLowerCase().indexOf(inputNameString.toLowerCase()) != -1;
-		})
-	}
+	// function searchByName(inputNameString) {
+	// 	return repository.filter(function (repositoryObject){
+	// 		return repositoryObject.name.toLowerCase().indexOf(inputNameString.toLowerCase()) != -1;
+	// 	})
+	// }
 
 //create new list-items and buttons, append them to the pokelist,
 //attach ftting classes for the css.
@@ -72,7 +72,6 @@ var pokemonRepository = (function () {
 		}).then(function (details) {
 			item.imageUrl = details.sprites.front_default;
 			item.heigth = details.height;
-		//delete later:	item.types = Object.keys(details.types);
 			if (details.types.length == 2 ) {
 			item.types = [details.types[0].type.name, details.types[1].type.name];
 		} else {
