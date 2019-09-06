@@ -49,6 +49,7 @@ body {
 	overflow: hidden;
 	overflow: -moz-hidden-unscrollable;
 	box-shadow: 1px 1px 10px black;
+	max-width: 900px;
 }
 
 
@@ -311,7 +312,7 @@ button.list-item__button:active {
 	padding: 0.3em;
 	background: rgba(0,0,0,0.2);
 	text-decoration: underline;
-	border-radius: 0.1em; 
+	border-radius: 0.1em;
 }
 
 .modal-img {
